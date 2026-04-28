@@ -3,7 +3,10 @@ const cors = require("cors");
 require("dotenv").config();
 
 const connectDB = require("./config/db");
-const userRoutes = require("./routes/user.routes.js");
+
+// ✅ IMPORT ROUTERS
+const userRoutes = require("./routes/user.routes");
+const postRoutes = require("./routes/posts.routes");
 
 const app = express();
 
@@ -20,13 +23,14 @@ app.use(
   })
 );
 
-// test API route (for assignment)
+// test route
 app.get("/api/test", (req, res) => {
   res.json({ message: "Backend is connected successfully!" });
 });
 
-// routes
-app.use("/api/users", userRoutes);
+// ✅ FIXED ROUTES (NO mainRouter)
+app.use("/api/v1/users", userRoutes);
+app.use("/api/v1/posts", postRoutes);
 
 // root route
 app.get("/", (req, res) => {
